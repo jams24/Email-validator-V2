@@ -69,7 +69,7 @@ Workers are capped at 5 in free mode to stay clean against the rate limit.
 ```bash
 git clone https://github.com/Krainium/Email-validator-V2.git
 cd Email-validator-v2
-pip install requests rich
+pip3 install requests rich or pip3 install requirements.txt
 ```
 
 Python 3.10 or higher.
