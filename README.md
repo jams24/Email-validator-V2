@@ -185,3 +185,34 @@ Free mode sends two requests per check. One to get a signed token from ychecker.
 API key mode has no hard rate limit — it is credit-based. Workers can go up to 20 without issues.
 
 The config file at `~/.emailchkrc` stores your key in plain JSON. Do not commit it.
+
+---
+
+## Run as a web service
+
+A FastAPI wrapper in `app.py` exposes the same validator as a website and JSON API.
+
+```bash
+pip install -r requirements.txt
+python app.py
+# → http://localhost:3000
+```
+
+### Endpoints
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET`  | `/`               | HTML UI (single + bulk tabs) |
+| `POST` | `/api/check`      | Check one email |
+| `POST` | `/api/check-bulk` | Check up to 50 emails |
+| `GET`  | `/api/health`     | Liveness probe |
+
+```bash
+curl -X POST http://localhost:3000/api/check \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"foo@gmail.com"}'
+```
+
+Pass `"api_key": "..."` in the body to use API-key mode; omit it for free mode.
+The included `Procfile` works on Heroku-style hosts; on platforms that auto-run
+`python app.py`, the `__main__` block binds uvicorn to `$PORT` (default `3000`).
