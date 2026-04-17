@@ -75,14 +75,6 @@ def home() -> str:
     return INDEX_HTML
 
 
-if __name__ == "__main__":
-    import os
-
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "3000")))
-
-
 INDEX_HTML = """<!doctype html>
 <html lang="en">
 <head>
@@ -251,3 +243,11 @@ GET /api/health  →  { "status": "ok" }</pre>
 </script>
 </body>
 </html>"""
+
+
+if __name__ == "__main__":
+    import os
+
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", "3000")))
